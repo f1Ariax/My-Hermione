@@ -3,144 +3,91 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>برای محدثه 💖</title>
-
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<title>برای نینی 💖</title>
 
 <style>
 body{
-    margin:0;
-    font-family:tahoma;
-    text-align:center;
-    color:white;
-    overflow:hidden;
-    background:black;
+margin:0;
+overflow:hidden;
+background:black;
+font-family:tahoma;
+color:white;
+text-align:center;
 }
 
-/* ستاره‌ها */
-.stars{
-    position:fixed;
-    width:100%;
-    height:100%;
-}
-.star{
-    position:absolute;
-    width:2px;
-    height:2px;
-    background:white;
-    animation: twinkle 2s infinite alternate;
-}
-@keyframes twinkle{
-    from{opacity:0.3;}
-    to{opacity:1;}
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:0;
 }
 
 .container{
-    position:relative;
-    z-index:2;
-    padding-top:40px;
+position:relative;
+z-index:2;
+padding-top:40px;
+}
+
+#gameArea{
+margin:60px auto;
+width:300px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:25px;
+justify-items:center;
 }
 
 .heart{
-    font-size:30px;
-    position:absolute;
-    cursor:pointer;
+font-size:45px;
+cursor:pointer;
+transition:transform .3s;
 }
 
-#questionBox, #finalMessage{
-    display:none;
-    margin-top:20px;
+.heart:hover{
+transform:scale(1.2);
+}
+
+@keyframes pulse{
+0%{transform:scale(1);}
+50%{transform:scale(1.6);}
+100%{transform:scale(0);}
+}
+
+.clicked{
+animation:pulse .6s forwards;
+}
+
+#questionBox,#finalMessage{
+display:none;
+margin-top:20px;
 }
 
 input{
-    padding:10px;
-    width:80%;
-    border-radius:10px;
-    border:none;
-    margin-top:10px;
+padding:10px;
+width:80%;
+border-radius:10px;
+border:none;
+margin-top:10px;
 }
 
 button{
-    padding:10px 20px;
-    border:none;
-    border-radius:10px;
-    margin-top:15px;
-    cursor:pointer;
-    background:#ff4d6d;
-    color:white;
-}
-
-.poem{
-    margin-top:20px;
-    line-height:30px;
-    font-size:18px;
-}
-
-/* ساعت شنی */
-.hourglass{
-    position:absolute;
-    bottom:20px;
-    right:20px;
-    text-align:center;
-}
-.sand{
-    width:40px;
-    height:60px;
-    background:linear-gradient(to top,#ffcc70 75%, transparent 75%);
-    border:2px solid white;
-    margin:auto;
-}
-.hourglass p{
-    font-size:12px;
-    margin-top:5px;
-}
-
-/* افکت سینمایی */
-#cinemaOverlay{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:black;
-    opacity:0;
-    transition:opacity 3s ease;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    z-index:5;
-}
-
-#cinemaOverlay h1{
-    font-size:50px;
-    background:linear-gradient(45deg,#00ffcc,#00aaff);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-    text-shadow:0 0 20px rgba(0,255,200,0.8);
-    opacity:0;
-    transition:opacity 3s ease 2s;
-}
-
-#cinemaOverlay p{
-    margin-top:20px;
-    font-size:22px;
-    opacity:0;
-    transition:opacity 3s ease 4s;
+padding:10px 20px;
+border:none;
+border-radius:10px;
+margin-top:15px;
+cursor:pointer;
+background:#ff4d6d;
+color:white;
 }
 </style>
 </head>
 <body>
 
-<div class="stars" id="stars"></div>
-
-<audio id="bgMusic" autoplay loop>
-<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_5d8b6f2a9b.mp3" type="audio/mpeg">
-</audio>
+<canvas id="space"></canvas>
 
 <div class="container">
-<h1>ماموریت قلب آریا برای محدثه 💘</h1>
-<p id="instruction">همه قلب‌ها رو بگیر نانایی 😌💞</p>
+<h1>ماموریت عشق در کهکشان 💫</h1>
+<p>تیکه های قلبمو جمع کن 😌💞</p>
 
 <div id="gameArea"></div>
 
@@ -154,100 +101,206 @@ button{
 
 <div id="finalMessage">
 <h2>برای نینی از طرف نانا 💖</h2>
-
-<div class="poem">
-عاشقانه میپرستم سبز چشمانت چو مستم <br>
-در پناه سایه‌ی شب خواهم آغوشت چو مستم..<br><br>
-هرچه مستم از تو هستم ، چو دلیل زندگیمی <br>
-تا تهش بد مست مستم..
-</div>
-
 <button onclick="loveBack()">منم عاشقتم نانایی.. 💕</button>
-
-<div id="herAnswer" style="margin-top:20px;"></div>
+<div id="herAnswer"></div>
 </div>
-</div>
-
-<div class="hourglass">
-<div class="sand"></div>
-<p>چشم رو هم بزاریم<br>یک سال گذشته...</p>
-</div>
-
-<div id="cinemaOverlay">
-<h1>محدثه</h1>
-<p>من بیشتر.. روزت مبارک دخترم❤️</p>
 </div>
 
 <script>
-(function(){
-emailjs.init("qUXswdAPf7lV9Xzuf");
-})();
+const canvas=document.getElementById("space");
+const ctx=canvas.getContext("2d");
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+
+/* ستاره‌های سه‌بعدی */
+let stars=[];
+for(let i=0;i<200;i++){
+stars.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+z:Math.random()*canvas.width,
+size:Math.random()*2,
+speed:Math.random()*2+0.5
+});
+}
+
+/* سیارات */
+function drawPlanet(x,y,r,color1,color2){
+let grad=ctx.createRadialGradient(x-r/3,y-r/3,10,x,y,r);
+grad.addColorStop(0,color1);
+grad.addColorStop(1,color2);
+ctx.fillStyle=grad;
+ctx.beginPath();
+ctx.arc(x,y,r,0,Math.PI*2);
+ctx.fill();
+}
+
+/* سفینه و قلب */
+let heart={x:canvas.width/2,y:canvas.height/2};
+let ship={x:100,y:100};
+let explosion=false;
+let particles=[];
+
+function animate(){
+ctx.fillStyle="rgba(0,0,0,0.4)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
 
 /* ستاره‌ها */
-for(let i=0;i<120;i++){
-let star=document.createElement("div");
-star.className="star";
-star.style.left=Math.random()*100+"%";
-star.style.top=Math.random()*100+"%";
-star.style.animationDuration=(Math.random()*2+1)+"s";
-document.getElementById("stars").appendChild(star);
+for(let s of stars){
+s.z-=s.speed;
+if(s.z<=0){s.z=canvas.width;}
+let k=128/s.z;
+let px=s.x*k+canvas.width/2;
+let py=s.y*k+canvas.height/2;
+let size=(1-s.z/canvas.width)*3;
+ctx.fillStyle="white";
+ctx.beginPath();
+ctx.arc(px,py,size,0,Math.PI*2);
+ctx.fill();
 }
 
-let totalHearts=6;
-let caught=0;
+/* زمین */
+drawPlanet(120,canvas.height-120,80,"#4facfe","#003366");
 
-function createHeart(){
-let heart=document.createElement("div");
-heart.innerHTML="💖";
-heart.className="heart";
-heart.style.left=Math.random()*90+"%";
-heart.style.top=Math.random()*70+"%";
-heart.onclick=function(){
-heart.remove();
-caught++;
-if(caught===totalHearts){
+/* مریخ */
+drawPlanet(canvas.width-120,canvas.height-150,60,"#ff9966","#660000");
+
+/* قلب */
+ctx.font="50px Arial";
+ctx.fillText("💖",heart.x,heart.y);
+
+/* حرکت سفینه */
+if(!explosion){
+ship.x+=(heart.x-ship.x)*0.01;
+ship.y+=(heart.y-ship.y)*0.01;
+}
+
+ctx.font="35px Arial";
+ctx.fillText("🚀",ship.x,ship.y);
+
+/* نور نزدیک شدن */
+let dist=Math.hypot(ship.x-heart.x,ship.y-heart.y);
+if(dist<40 && !explosion){
+explosion=true;
+for(let i=0;i<80;i++){
+particles.push({
+x:heart.x,
+y:heart.y,
+vx:(Math.random()-0.5)*6,
+vy:(Math.random()-0.5)*6,
+life:100
+});
+}
+}
+
+/* انفجار */
+for(let p of particles){
+p.x+=p.vx;
+p.y+=p.vy;
+p.life--;
+ctx.fillStyle="rgba(255,100,200,"+p.life/100+")";
+ctx.beginPath();
+ctx.arc(p.x,p.y,3,0,Math.PI*2);
+ctx.fill();
+}
+
+requestAnimationFrame(animate);
+}
+animate();
+
+/* قلب‌های بازی */
+let total=6, count=0;
+for(let i=0;i<total;i++){
+let h=document.createElement("div");
+h.innerHTML="💖";
+h.className="heart";
+h.onclick=function(){
+h.classList.add("clicked");
+setTimeout(()=>{
+h.remove();
+count++;
+if(count===total){
 document.getElementById("questionBox").style.display="block";
 }
+},600);
+};
+document.getElementById("gameArea").appendChild(h);
 }
-document.getElementById("gameArea").appendChild(heart);
-}
-for(let i=0;i<totalHearts;i++){createHeart();}
+<script>
 
-function finishGame(){
-let userAnswer=document.getElementById("answer").value;
-if(userAnswer.trim()===""){alert("باید جواب بدی نانایی 😌");return;}
+/* موزیک */
+let music = new Audio("https://cdn.pixabay.com/download/audio/2022/10/25/audio_946f5c8c8e.mp3?filename=romantic-background-112191.mp3");
+music.loop = true;
+music.volume = 0.4;
+music.play();
 
-emailjs.send("service_7r9epvf","template_o1k0oo5",{
-message:userAnswer,
-from_name:"محدثه"
-});
-
-document.getElementById("questionBox").style.display="none";
-document.getElementById("finalMessage").style.display="block";
-document.getElementById("herAnswer").innerHTML=
-"💌 چیزی که گفتی خوشحالت می‌کنه:<br>"+userAnswer;
-}
-
+/* دکمه عاشقتم */
 function loveBack(){
-let overlay=document.getElementById("cinemaOverlay");
-let music=document.getElementById("bgMusic");
 
-overlay.style.opacity="1";
-music.volume=0.3;
-
-let fadeInterval=setInterval(function(){
-if(music.volume<1){
-music.volume+=0.05;
-}else{
-clearInterval(fadeInterval);
+// اوج گرفتن موزیک
+let fadeUp = setInterval(()=>{
+if(music.volume < 1){
+music.volume += 0.02;
 }
-},500);
+},200);
+
+// تاریک شدن صفحه
+let overlay = document.createElement("div");
+overlay.style.position="fixed";
+overlay.style.top="0";
+overlay.style.left="0";
+overlay.style.width="100%";
+overlay.style.height="100%";
+overlay.style.background="black";
+overlay.style.opacity="0";
+overlay.style.transition="opacity 4s";
+overlay.style.zIndex="5";
+document.body.appendChild(overlay);
 
 setTimeout(()=>{
-overlay.querySelector("h1").style.opacity="1";
-overlay.querySelector("p").style.opacity="1";
-},1000);
+overlay.style.opacity="0.85";
+},100);
+
+// اسم محدثه
+let name = document.createElement("div");
+name.innerText="محدثه";
+name.style.position="fixed";
+name.style.top="35%";
+name.style.width="100%";
+name.style.textAlign="center";
+name.style.fontSize="70px";
+name.style.fontWeight="bold";
+name.style.color="#6ef0ff";
+name.style.textShadow="0 0 20px #00ffcc, 0 0 40px #0099ff";
+name.style.opacity="0";
+name.style.transition="opacity 4s";
+name.style.zIndex="6";
+document.body.appendChild(name);
+
+setTimeout(()=>{
+name.style.opacity="1";
+},2000);
+
+// متن پایانی
+let finalText = document.createElement("div");
+finalText.innerHTML="من بیشتر..<br>روزت مبارک دخترم ❤️";
+finalText.style.position="fixed";
+finalText.style.top="60%";
+finalText.style.width="100%";
+finalText.style.textAlign="center";
+finalText.style.fontSize="30px";
+finalText.style.color="white";
+finalText.style.opacity="0";
+finalText.style.transition="opacity 4s";
+finalText.style.zIndex="6";
+document.body.appendChild(finalText);
+
+setTimeout(()=>{
+finalText.style.opacity="1";
+},4000);
+
 }
+
 </script>
 
 </body>
