@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>برای محدثه 💖</title>
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<style>
+body{
+    margin:0;
+    font-family:tahoma;
+    text-align:center;
+    color:white;
+    overflow:hidden;
+    background:black;
+}
+
+/* ستاره‌ها */
+.stars{
+    position:fixed;
+    width:100%;
+    height:100%;
+}
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    animation: twinkle 2s infinite alternate;
+}
+@keyframes twinkle{
+    from{opacity:0.3;}
+    to{opacity:1;}
+}
+
+.container{
+    position:relative;
+    z-index:2;
+    padding-top:40px;
+}
+
+.heart{
+    font-size:30px;
+    position:absolute;
+    cursor:pointer;
+}
+
+#questionBox, #finalMessage{
+    display:none;
+    margin-top:20px;
+}
+
+input{
+    padding:10px;
+    width:80%;
+    border-radius:10px;
+    border:none;
+    margin-top:10px;
+}
+
+button{
+    padding:10px 20px;
+    border:none;
+    border-radius:10px;
+    margin-top:15px;
+    cursor:pointer;
+    background:#ff4d6d;
+    color:white;
+}
+
+.poem{
+    margin-top:20px;
+    line-height:30px;
+    font-size:18px;
+}
+
+/* ساعت شنی */
+.hourglass{
+    position:absolute;
+    bottom:20px;
+    right:20px;
+    text-align:center;
+}
+.sand{
+    width:40px;
+    height:60px;
+    background:linear-gradient(to top,#ffcc70 75%, transparent 75%);
+    border:2px solid white;
+    margin:auto;
+}
+.hourglass p{
+    font-size:12px;
+    margin-top:5px;
+}
+
+/* افکت سینمایی */
+#cinemaOverlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:black;
+    opacity:0;
+    transition:opacity 3s ease;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    z-index:5;
+}
+
+#cinemaOverlay h1{
+    font-size:50px;
+    background:linear-gradient(45deg,#00ffcc,#00aaff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    text-shadow:0 0 20px rgba(0,255,200,0.8);
+    opacity:0;
+    transition:opacity 3s ease 2s;
+}
+
+#cinemaOverlay p{
+    margin-top:20px;
+    font-size:22px;
+    opacity:0;
+    transition:opacity 3s ease 4s;
+}
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<audio id="bgMusic" autoplay loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_5d8b6f2a9b.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+<h1>ماموریت قلب آریا برای محدثه 💘</h1>
+<p id="instruction">همه قلب‌ها رو بگیر نانایی 😌💞</p>
+
+<div id="gameArea"></div>
+
+<div id="questionBox">
+<h3>بابایی از دخترش یه سوالی داره 💭</h3>
+<p>چه چیزی توی زندگی بیشتر از هرچیزی خوشحالت کرده و میکنه؟</p>
+<input type="text" id="answer">
+<br>
+<button onclick="finishGame()">ادامه 💌</button>
+</div>
+
+<div id="finalMessage">
+<h2>برای نینی از طرف نانا 💖</h2>
+
+<div class="poem">
+عاشقانه میپرستم سبز چشمانت چو مستم <br>
+در پناه سایه‌ی شب خواهم آغوشت چو مستم..<br><br>
+هرچه مستم از تو هستم ، چو دلیل زندگیمی <br>
+تا تهش بد مست مستم..
+</div>
+
+<button onclick="loveBack()">منم عاشقتم نانایی.. 💕</button>
+
+<div id="herAnswer" style="margin-top:20px;"></div>
+</div>
+</div>
+
+<div class="hourglass">
+<div class="sand"></div>
+<p>چشم رو هم بزاریم<br>یک سال گذشته...</p>
+</div>
+
+<div id="cinemaOverlay">
+<h1>محدثه</h1>
+<p>من بیشتر.. روزت مبارک دخترم❤️</p>
+</div>
+
+<script>
+(function(){
+emailjs.init("qUXswdAPf7lV9Xzuf");
+})();
+
+/* ستاره‌ها */
+for(let i=0;i<120;i++){
+let star=document.createElement("div");
+star.className="star";
+star.style.left=Math.random()*100+"%";
+star.style.top=Math.random()*100+"%";
+star.style.animationDuration=(Math.random()*2+1)+"s";
+document.getElementById("stars").appendChild(star);
+}
+
+let totalHearts=6;
+let caught=0;
+
+function createHeart(){
+let heart=document.createElement("div");
+heart.innerHTML="💖";
+heart.className="heart";
+heart.style.left=Math.random()*90+"%";
+heart.style.top=Math.random()*70+"%";
+heart.onclick=function(){
+heart.remove();
+caught++;
+if(caught===totalHearts){
+document.getElementById("questionBox").style.display="block";
+}
+}
+document.getElementById("gameArea").appendChild(heart);
+}
+for(let i=0;i<totalHearts;i++){createHeart();}
+
+function finishGame(){
+let userAnswer=document.getElementById("answer").value;
+if(userAnswer.trim()===""){alert("باید جواب بدی نانایی 😌");return;}
+
+emailjs.send("service_7r9epvf","template_o1k0oo5",{
+message:userAnswer,
+from_name:"محدثه"
+});
+
+document.getElementById("questionBox").style.display="none";
+document.getElementById("finalMessage").style.display="block";
+document.getElementById("herAnswer").innerHTML=
+"💌 چیزی که گفتی خوشحالت می‌کنه:<br>"+userAnswer;
+}
+
+function loveBack(){
+let overlay=document.getElementById("cinemaOverlay");
+let music=document.getElementById("bgMusic");
+
+overlay.style.opacity="1";
+music.volume=0.3;
+
+let fadeInterval=setInterval(function(){
+if(music.volume<1){
+music.volume+=0.05;
+}else{
+clearInterval(fadeInterval);
+}
+},500);
+
+setTimeout(()=>{
+overlay.querySelector("h1").style.opacity="1";
+overlay.querySelector("p").style.opacity="1";
+},1000);
+}
+</script>
+
+</body>
+</html>
